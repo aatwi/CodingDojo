@@ -13,9 +13,17 @@ public class Bowling {
     }
 
     private static int scoreFrame(String frame) {
-        int firstTry = parseInt(frame.substring(0, 1));
-        int secondTry = parseInt(frame.substring(1, 2));
-        return firstTry + secondTry;
+        String firstKnockedPins = frame.substring(0, 1);
+        if(firstKnockedPins.equals("X")) {
+            return 10;
+        }
+
+        String secondKnockedPins = frame.substring(1, 2);
+        if(secondKnockedPins.equals("/")) {
+            return 10;
+        }
+
+        return parseInt(firstKnockedPins) + parseInt(secondKnockedPins);
     }
 
 }

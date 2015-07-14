@@ -19,8 +19,20 @@ public class BowlingTest {
 
     @Test
     public void
-    it_should_return_a_number_when_we_have_a_spare_with_misses_after_it() {
+    it_should_return_the_score_having_a_spare_with_misses_after_it() {
         assertThat(Bowling.play("--|--|--|--|--|--|--|2/|--|--|")).isEqualTo(10);
+    }
+
+    @Test
+    public void
+    it_should_return_the_score_having_a_spare_with_hits_after_it() {
+        assertThat(Bowling.play("--|--|--|--|--|--|--|2/|3-|--|")).isEqualTo(16);
+    }
+
+    @Test
+    public void
+    it_should_return_a_number_when_we_have_a_strike_with_misses_after_it() {
+        assertThat(Bowling.play("--|--|--|--|--|--|--|X|--|--|")).isEqualTo(10);
     }
 
     @Ignore
