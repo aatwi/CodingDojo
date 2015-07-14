@@ -4,26 +4,35 @@ public class Bowling {
 
 
     public static int play(String gameScore) {
-        int score = 0;
         String[] frames = gameScore.replace("-", "0").split("\\|");
-        for (String frame : frames) {
-            score += scoreFrame(frame);
-        }
-        return score;
+        return scoreGame(frames, 0);
     }
 
-    private static int scoreFrame(String frame) {
+    private static int scoreGame(String[] frames, int index) {
+        if(index >= frames.length) {
+            return 0;
+        }
+        int frameScore;
+        
+        String frame = frames[index];
         String firstKnockedPins = frame.substring(0, 1);
-        if(firstKnockedPins.equals("X")) {
-            return 10;
-        }
-
         String secondKnockedPins = frame.substring(1, 2);
-        if(secondKnockedPins.equals("/")) {
-            return 10;
+
+        if(firstKnockedPins.equals("X")) {
+            frameScore = 10;
+        }
+        else if(secondKnockedPins.equals("/")) {
+            int nextBall = 0;
+            if(index + 1 < frames.length) {
+                nextBall = parseInt(frames[index+1].substring(0,1));
+            }
+            frameScore = 10 + nextBall;
+        }
+        else  {
+            frameScore = parseInt(firstKnockedPins) + parseInt(secondKnockedPins);
         }
 
-        return parseInt(firstKnockedPins) + parseInt(secondKnockedPins);
+        return frameScore + scoreGame(frames, index + 1);
     }
 
 }
