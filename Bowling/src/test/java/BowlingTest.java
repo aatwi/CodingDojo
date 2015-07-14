@@ -47,6 +47,12 @@ public class BowlingTest {
         assertThat(Bowling.play("--|--|--|--|--|--|--|X|32|--|")).isEqualTo(20);
     }
 
+    @Test
+    public void
+    it_should_return_the_score_having_spares_in_2_consecutive_frames() {
+        assertThat(Bowling.play("--|--|4/|5/|4-|--|--|--|--|--|")).isEqualTo(33);
+    }
+
     @Ignore
     @Test
     public void acceptance_test() {
