@@ -5,34 +5,39 @@ public class Bowling {
 
     public static int play(String gameScore) {
         String[] frames = gameScore.replace("-", "0").split("\\|");
-        return scoreGame(frames, 0);
+        return scoreFrames(frames, 0);
     }
 
-    private static int scoreGame(String[] frames, int index) {
-        if(index >= frames.length) {
+    private static int scoreFrames(String[] frames, int index) {
+        if (index >= frames.length) {
             return 0;
         }
         int frameScore;
-        
+
         String frame = frames[index];
-        String firstKnockedPins = frame.substring(0, 1);
-        String secondKnockedPins = frame.substring(1, 2);
+        String firstKnockedPin = frame.substring(0, 1);
 
-        if(firstKnockedPins.equals("X")) {
-            frameScore = 10;
-        }
-        else if(secondKnockedPins.equals("/")) {
-            int nextBall = 0;
-            if(index + 1 < frames.length) {
-                nextBall = parseInt(frames[index+1].substring(0,1));
+        if (firstKnockedPin.equals("X")) {
+            int next2BallsScore = nextFrameKnockedPins(frames, index, 0);
+            next2BallsScore += nextFrameKnockedPins(frames, index, 1);
+            frameScore = 10 + next2BallsScore;
+        } else {
+            String secondKnockedPin = frame.substring(1, 2);
+            if (secondKnockedPin.equals("/")) {
+                frameScore = 10 + nextFrameKnockedPins(frames, index, 0);
+            } else {
+                frameScore = parseInt(firstKnockedPin) + parseInt(secondKnockedPin);
             }
-            frameScore = 10 + nextBall;
-        }
-        else  {
-            frameScore = parseInt(firstKnockedPins) + parseInt(secondKnockedPins);
         }
 
-        return frameScore + scoreGame(frames, index + 1);
+        return frameScore + scoreFrames(frames, index + 1);
+    }
+
+    private static int nextFrameKnockedPins(String[] frames, int index, int pinIndex) {
+        if (index + 1 < frames.length) {
+            return parseInt(frames[index + 1].substring(pinIndex, pinIndex + 1));
+        }
+        return 0;
     }
 
 }

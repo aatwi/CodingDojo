@@ -35,6 +35,18 @@ public class BowlingTest {
         assertThat(Bowling.play("--|--|--|--|--|--|--|2/|3-|--|")).isEqualTo(16);
     }
 
+    @Test
+    public void
+    it_should_return_the_score_having_a_strike_with_hits_after_it() {
+        assertThat(Bowling.play("--|--|--|--|--|--|--|X|3-|--|")).isEqualTo(16);
+    }
+
+    @Test
+    public void
+    it_should_return_the_score_having_a_strike_with_2hits_after_it() {
+        assertThat(Bowling.play("--|--|--|--|--|--|--|X|32|--|")).isEqualTo(20);
+    }
+
     @Ignore
     @Test
     public void acceptance_test() {
