@@ -1,38 +1,29 @@
 package RomanNumeral;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.google.common.collect.ImmutableMap;
 
 public class RomanNumeral {
 
    private static final String I = "I";
    private static final String V = "V";
    private static final String X = "X";
-
-   private static final Map<Integer, String> ARABIC_TO_ROMAN = arabicToRomans();
    private static final String L = "L";
    private static final String C = "C";
    private static final String D = "D";
 
-   private static HashMap<Integer, String> arabicToRomans() {
-      final HashMap<Integer, String> result = new HashMap<>();
-      result.put(1, I);
-      result.put(5, V);
-      result.put(10, X);
-      result.put(50, L);
-      result.put(100, C);
-      result.put(500, D);
-      return result;
+   private static final ImmutableMap<Integer, String> ARABIC_TO_ROMAN = arabicToRomans();
+
+   private static ImmutableMap<Integer, String> arabicToRomans() {
+      return ImmutableMap.<Integer, String>builder().put(1, I).put(5, V).put(10, X).put(50, L).put(100, C).put(500, D).build();
    }
 
    public static String convertNumber(int number) {
       if (ARABIC_TO_ROMAN.containsKey(number)) {
          return ARABIC_TO_ROMAN.get(number);
       }
-      if (number < 40){
+      if (number < 40) {
          return getLetters(number / 10, X) + convertFrom1to9(number % 10, 1, 5, 10);
-      }
-      else{
+      } else {
          return getLetters(number / 100, C) + convertFrom1to9(number % 100, 10, 50, 100);
       }
    }
