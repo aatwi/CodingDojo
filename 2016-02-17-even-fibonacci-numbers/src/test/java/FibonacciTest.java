@@ -15,6 +15,17 @@ public class FibonacciTest {
       Assertions.assertThat(Fibonacci.compute(10)).isEqualTo(55);
    }
 
+   @Test
+   public void check_if_even_input_is_10(){
+      Assertions.assertThat(Fibonacci.checkeven(10)).isTrue();
+   }
+
+   @Test
+   public void check_if_even_input_is_5(){
+      Assertions.assertThat(Fibonacci.checkeven(5)).isFalse();
+   }
+
+
    @Ignore
    @Test
    public void if_input_is_4000000(){
